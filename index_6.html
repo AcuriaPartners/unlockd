@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlockd — L'infrastructure financière des nomades digitaux</title>
+<meta name="description" content="Stripe, multi-devises, crypto. Structure UK clé en main pour nomades digitaux, créateurs et infopreneurs — où que vous soyez.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06080d;
+  --bg2: #090c13;
+  --surface: #0e1218;
+  --surface2: #131820;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.10);
+  --accent: #4f6ef7;
+  --accent2: #7c3aed;
+  --accent3: #06d6a0;
+  --text: #edf0f7;
+  --muted: #6b7a90;
+  --dim: #2e3a4a;
+  --gradient: linear-gradient(135deg, #4f6ef7 0%, #7c3aed 100%);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden}
+
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1000}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(6,8,13,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+
+.logo{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:22px;letter-spacing:-1px;color:var(--text);display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:28px;height:28px;border-radius:8px;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:14px}
+
+.nav-mid{display:flex;align-items:center;gap:28px}
+.nav-lnk{font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-lnk:hover{color:var(--text)}
+
+.nav-right{display:flex;align-items:center;gap:12px}
+
+.lang-toggle{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.lang-btn{padding:5px 11px;font-size:12px;font-weight:600;border:none;background:none;color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.04em;font-family:'Instrument Sans',sans-serif}
+.lang-btn.active{background:var(--gradient);color:#fff}
+
+.nav-cta{background:var(--gradient);color:#fff;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:14px;padding:8px 20px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;letter-spacing:-.2px}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 20px rgba(79,110,247,.4)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 100px;position:relative;overflow:hidden}
+
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.o1{width:500px;height:500px;background:rgba(79,110,247,.12);top:-100px;left:-100px}
+.o2{width:400px;height:400px;background:rgba(124,58,237,.10);top:10%;right:-80px}
+.o3{width:300px;height:300px;background:rgba(6,214,160,.06);bottom:10%;left:30%}
+
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent);pointer-events:none}
+
+.hero-inner{position:relative;z-index:2;max-width:940px}
+
+.locations-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(79,110,247,.08);border:1px solid rgba(79,110,247,.2);padding:6px 16px;border-radius:100px;margin-bottom:36px;animation:fadeUp .7s ease both;font-size:13px;color:#8da4f7}
+
+h1{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(46px,7vw,88px);line-height:.95;letter-spacing:-3px;color:var(--text);max-width:900px;margin-bottom:28px;animation:fadeUp .7s .1s ease both}
+h1 em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h1 .teal{font-style:normal;color:var(--accent3);-webkit-text-fill-color:var(--accent3)}
+
+.hero-p{font-size:clamp(16px,1.9vw,19px);color:var(--muted);max-width:560px;line-height:1.72;margin:0 auto 52px;font-weight:300;animation:fadeUp .7s .2s ease both}
+
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gradient);color:#fff;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:16px;padding:14px 28px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;letter-spacing:-.3px;transition:all .2s}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 10px 40px rgba(79,110,247,.4)}
+
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--muted);font-size:15px;padding:14px 24px;border-radius:10px;border:1px solid var(--border2);cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+
+.profiles{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:60px;flex-wrap:wrap;animation:fadeUp .7s .4s ease both}
+.profile-chip{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:100px;font-size:13px;color:var(--muted)}
+.pdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pd-b{background:#4f6ef7}.pd-p{background:#7c3aed}.pd-t{background:#06d6a0}
+
+/* ── PLATFORMS ── */
+.platforms{padding:48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)}
+.plat-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+.plat-label{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap;flex-shrink:0}
+.plat-div{width:1px;height:28px;background:var(--border);flex-shrink:0}
+.plat-logos{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.plat{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--dim);transition:color .2s;letter-spacing:-.3px}
+.plat:hover{color:var(--muted)}
+.plat-new{font-size:10px;font-weight:600;background:rgba(124,58,237,.15);color:#a78bfa;padding:2px 7px;border-radius:4px;letter-spacing:.04em;vertical-align:middle;margin-left:4px}
+
+/* ── SHARED ── */
+.stag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8da4f7;margin-bottom:18px}
+.sh2{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(30px,4vw,50px);letter-spacing:-2px;line-height:1.05;color:var(--text);margin-bottom:16px}
+.sp{font-size:17px;color:var(--muted);line-height:1.7;font-weight:300}
+
+/* ── PROBLEM ── */
+.prob-sec{padding:110px 48px}
+.prob-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.prob-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;transition:border-color .25s,transform .25s;cursor:default}
+.pcard:hover{border-color:rgba(79,110,247,.25);transform:translateY(-2px)}
+.pcard-ico{font-size:24px;margin-bottom:12px;display:block}
+.pcard-t{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:8px;letter-spacing:-.3px}
+.pcard-d{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ── HOW ── */
+.how-sec{padding:110px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.how-inner{max-width:1100px;margin:0 auto}
+.how-hdr{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:60px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:20px;overflow:hidden}
+.step{background:var(--surface);padding:36px 28px;position:relative;transition:background .2s}
+.step:hover{background:var(--surface2)}
+.step-bar{position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:0;transition:opacity .25s}
+.step:hover .step-bar{opacity:1}
+.step-n{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin-bottom:20px}
+.step-t{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:10px;letter-spacing:-.3px;line-height:1.2}
+.step-d{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── BENEFITS ── */
+.ben-sec{padding:110px 48px}
+.ben-inner{max-width:1100px;margin:0 auto}
+.ben-hdr{text-align:center;margin-bottom:60px}
+.ben-hdr .sp{max-width:500px;margin:0 auto}
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bcard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
+.bcard:hover{border-color:rgba(79,110,247,.2);transform:translateY(-4px)}
+.bcard::after{content:'';position:absolute;bottom:-40px;right:-40px;width:130px;height:130px;border-radius:50%;opacity:0;transition:opacity .3s}
+.bcard:hover::after{opacity:1}
+.bc1::after{background:radial-gradient(circle,rgba(79,110,247,.1),transparent)}
+.bc2::after{background:radial-gradient(circle,rgba(124,58,237,.1),transparent)}
+.bc3::after{background:radial-gradient(circle,rgba(6,214,160,.08),transparent)}
+.bcard-ico{font-size:32px;margin-bottom:20px;display:block}
+.bcard-t{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--text);margin-bottom:10px;letter-spacing:-.4px}
+.bcard-d{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── PRICING ── */
+.price-sec{padding:110px 48px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.price-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
+.inc-list{display:flex;flex-direction:column;gap:2px;margin-top:44px}
+.inc-row{display:flex;align-items:flex-start;gap:14px;padding:14px 12px;border-radius:10px;transition:background .2s}
+.inc-row:hover{background:var(--surface)}
+.inc-ck{width:20px;height:20px;border-radius:6px;background:rgba(79,110,247,.12);border:1px solid rgba(79,110,247,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.inc-ck svg{width:10px;height:10px;stroke:#8da4f7}
+.inc-t{font-size:14px;color:var(--text);line-height:1.4}
+.inc-s{font-size:12px;color:var(--muted);margin-top:2px}
+
+.pcard-wrap{position:relative}
+.pcard-wrap::before{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(79,110,247,.3),rgba(124,58,237,.2));border-radius:25px;z-index:-1}
+.price-card{background:var(--surface);border-radius:24px;overflow:hidden}
+.price-top{background:linear-gradient(135deg,rgba(79,110,247,.1) 0%,rgba(124,58,237,.07) 100%);border-bottom:1px solid var(--border);padding:40px}
+.price-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(79,110,247,.15);border:1px solid rgba(79,110,247,.25);color:#8da4f7;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:24px}
+.price-amt{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:68px;letter-spacing:-5px;color:var(--text);line-height:1}
+.price-cur{font-size:28px;letter-spacing:-1px;vertical-align:top;margin-top:12px;display:inline-block;color:var(--muted)}
+.price-per{font-size:14px;color:var(--muted);margin-top:8px}
+.price-body{padding:32px 40px 40px}
+.price-feats{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.price-f{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.pf-dot{width:5px;height:5px;border-radius:50%;background:var(--accent3);flex-shrink:0}
+.price-renew{font-size:13px;color:var(--dim);text-align:center;margin-top:16px;padding-top:20px;border-top:1px solid var(--border)}
+
+/* ── WHO ── */
+.who-sec{padding:110px 48px}
+.who-inner{max-width:1100px;margin:0 auto}
+.who-hdr{text-align:center;margin-bottom:60px}
+.who-hdr .sp{max-width:480px;margin:0 auto}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.wcard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px;transition:border-color .25s,transform .25s}
+.wcard:hover{border-color:rgba(255,255,255,.12);transform:translateY(-4px)}
+.wcard-ico{font-size:36px;margin-bottom:20px;display:block}
+.wcard-t{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--text);margin-bottom:12px;letter-spacing:-.4px}
+.wcard-d{font-size:14px;color:var(--muted);line-height:1.65}
+.wcard-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.wtag{font-size:11px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+
+/* ── FAQ ── */
+.faq-sec{padding:110px 48px;background:var(--bg2);border-top:1px solid var(--border)}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-list{margin-top:56px}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;padding:24px 0;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;letter-spacing:-.4px;text-align:left}
+.faq-tog{width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted);font-size:18px;transition:all .25s}
+.faq-item.open .faq-tog{background:rgba(79,110,247,.1);border-color:rgba(79,110,247,.3);color:#8da4f7;transform:rotate(45deg)}
+.faq-a{font-size:15px;color:var(--muted);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:28px}
+
+/* ── CTA ── */
+.cta-sec{padding:140px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(79,110,247,.08) 0%,rgba(124,58,237,.05) 40%,transparent 70%);pointer-events:none}
+.cta-h2{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:clamp(36px,6vw,72px);letter-spacing:-3px;line-height:1;color:var(--text);max-width:700px;margin:0 auto 20px}
+.cta-p{font-size:17px;color:var(--muted);margin-bottom:48px;font-weight:300}
+
+/* ── FOOTER ── */
+footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ft-logo{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:18px;letter-spacing:-.8px;color:var(--muted)}
+.ft-links{display:flex;gap:28px;flex-wrap:wrap}
+.ft-links a{font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--muted)}
+.ft-note{font-size:12px;color:var(--dim)}
+
+/* ── ANIM ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv2{opacity:0;transform:translateY(28px);transition:opacity .65s .15s ease,transform .65s .15s ease}
+.rv2.on{opacity:1;transform:translateY(0)}
+
+/* ── MODAL ── */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:24px;padding:48px;max-width:460px;width:100%;position:relative;transform:scale(.96) translateY(16px);transition:transform .3s}
+.ov.open .modal{transform:scale(1) translateY(0)}
+.mx{position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mx:hover{border-color:var(--border2);color:var(--text)}
+.m-ico{font-size:32px;margin-bottom:14px}
+.m-t{font-family:'Cabinet Grotesk',sans-serif;font-weight:900;font-size:26px;letter-spacing:-1px;color:var(--text);margin-bottom:6px}
+.m-s{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.5}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.fld input,.fld select{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;appearance:none}
+.fld input:focus,.fld select:focus{border-color:rgba(79,110,247,.5)}
+.fld input::placeholder{color:var(--dim)}
+.fld select option{background:#0e1218}
+.m-sub{width:100%;background:var(--gradient);color:#fff;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:16px;padding:14px;border-radius:10px;border:none;cursor:pointer;margin-top:6px;letter-spacing:-.3px;transition:all .2s}
+.m-sub:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 28px rgba(79,110,247,.4)}
+.m-fine{font-size:12px;color:var(--dim);text-align:center;margin-top:14px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:0 20px}
+  .nav-mid{display:none}
+  .prob-layout,.how-hdr,.price-inner{grid-template-columns:1fr;gap:48px}
+  .steps{grid-template-columns:1fr 1fr}
+  .ben-grid,.who-grid{grid-template-columns:1fr}
+  .prob-sec,.how-sec,.ben-sec,.price-sec,.who-sec,.faq-sec,.cta-sec{padding:70px 20px}
+  .platforms{padding:36px 20px}
+  footer{padding:28px 20px;flex-direction:column}
+  .modal{padding:32px 24px}
+}
+@media(max-width:580px){
+  .steps{grid-template-columns:1fr}
+  .prob-cards{grid-template-columns:1fr}
+  h1{letter-spacing:-2px}
+  .cta-h2{letter-spacing:-2px}
+  .ft-links{flex-wrap:wrap;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-icon">⚡</div>
+    Unlockd
+  </a>
+  <div class="nav-mid">
+    <a href="#how" class="nav-lnk" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</a>
+    <a href="#pricing" class="nav-lnk" data-fr="Tarifs" data-en="Pricing">Tarifs</a>
+    <a href="#who" class="nav-lnk" data-fr="Pour qui" data-en="Who it's for">Pour qui</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('fr')" id="btn-fr">FR</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    </div>
+    <a href="#contact" class="nav-cta" onclick="openModal(event)" data-fr="Démarrer →" data-en="Get started →">Démarrer →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+
+    <div class="locations-pill">
+      🌍 &nbsp;<span data-fr="Bali · Dubaï · Maurice · Bangkok · Tenerife · Tbilisi · Medellín" data-en="Bali · Dubai · Mauritius · Bangkok · Tenerife · Tbilisi · Medellín">Bali · Dubaï · Maurice · Bangkok · Tenerife · Tbilisi · Medellín</span>
+    </div>
+
+    <h1>
+      <span data-fr="Votre business tourne" data-en="Your business runs">Votre business tourne</span><br>
+      <em data-fr="partout." data-en="anywhere.">partout.</em><br>
+      <span data-fr="Vos paiements" data-en="Your payments">Vos paiements</span> <span class="teal" data-fr="aussi." data-en="should too.">aussi.</span>
+    </h1>
+
+    <p class="hero-p" data-fr="Vous êtes nomade digital, créateur ou infopreneur. Vous vendez partout dans le monde. Mais votre banque locale vous bloque, prélève trop, ou ne comprend pas votre activité. On règle ça — entité UK, compte multi-devises, Stripe actif en moins de 2 semaines. Sans obligation de rapatrier vos fonds." data-en="You're a digital nomad, creator or infopreneur. You sell globally. But your local bank blocks you, charges too much, or simply doesn't get it. We fix that — UK entity, multi-currency account, Stripe active in under 2 weeks. No repatriation required.">
+      Vous êtes nomade digital, créateur ou infopreneur. Vous vendez partout dans le monde. Mais votre banque locale vous bloque, prélève trop, ou ne comprend pas votre activité. On règle ça — entité UK, compte multi-devises, Stripe actif en moins de 2 semaines. Sans obligation de rapatrier vos fonds.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary" onclick="openModal(event)" data-fr="Débloquer mes paiements →" data-en="Unlock my payments →">Débloquer mes paiements →</a>
+      <a href="#how" class="btn-ghost" data-fr="Comment ça marche" data-en="See how it works">Comment ça marche</a>
+    </div>
+
+    <div class="profiles">
+      <span class="profile-chip"><span class="pdot pd-b"></span><span data-fr="Nomades digitaux" data-en="Digital Nomads">Nomades digitaux</span></span>
+      <span class="profile-chip"><span class="pdot pd-p"></span><span data-fr="Infopreneurs" data-en="Infopreneurs">Infopreneurs</span></span>
+      <span class="profile-chip"><span class="pdot pd-t"></span><span data-fr="Créateurs de contenu" data-en="Content Creators">Créateurs de contenu</span></span>
+      <span class="profile-chip"><span class="pdot pd-b"></span><span>E-commerce</span></span>
+      <span class="profile-chip"><span class="pdot pd-p"></span><span data-fr="Fondateurs SaaS" data-en="SaaS founders">Fondateurs SaaS</span></span>
+      <span class="profile-chip"><span class="pdot pd-t"></span><span>Dropshippers</span></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<div class="platforms">
+  <div class="plat-inner">
+    <span class="plat-label" data-fr="Compatible avec" data-en="Works with">Compatible avec</span>
+    <div class="plat-div"></div>
+    <div class="plat-logos">
+      <span class="plat">Stripe</span>
+      <span class="plat">Shopify</span>
+      <span class="plat">PayPal</span>
+      <span class="plat">Gumroad</span>
+      <span class="plat">Paddle</span>
+      <span class="plat">Lemon Squeezy</span>
+      <span class="plat">Coinbase Commerce<span class="plat-new">crypto</span></span>
+      <span class="plat">USDC / USDT<span class="plat-new">stablecoin</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="prob-sec">
+  <div class="prob-layout">
+    <div class="rv">
+      <div class="stag" data-fr="Le problème" data-en="The problem">Le problème</div>
+      <h2 class="sh2" data-fr="Vos revenus sont globaux. Votre banque, non." data-en="Your income is global. Your banking isn't.">Vos revenus sont globaux. Votre banque, non.</h2>
+      <p class="sp" data-fr="Où que vous soyez — Bali, Dubaï, Maurice, Mexique, Géorgie — les banques locales n'ont pas été conçues pour ceux qui vendent sur internet au monde entier. La friction est réelle, et elle vous coûte chaque jour." data-en="Wherever you live — Bali, Dubai, Mauritius, Mexico, Georgia — local banking was not built for people who sell online to the whole world. The friction is real, and it costs you money every day.">
+        Où que vous soyez — Bali, Dubaï, Maurice, Mexique, Géorgie — les banques locales n'ont pas été conçues pour ceux qui vendent sur internet au monde entier. La friction est réelle, et elle vous coûte chaque jour.
+      </p>
+    </div>
+    <div class="prob-cards rv2">
+      <div class="pcard">
+        <span class="pcard-ico">🚫</span>
+        <div class="pcard-t" data-fr="Stripe indisponible" data-en="Stripe unavailable">Stripe indisponible</div>
+        <p class="pcard-d" data-fr="Des dizaines de pays ne sont pas acceptés par Stripe. Encaisser par carte : impossible." data-en="Dozens of countries don't appear on Stripe's supported list. No card payments — period.">Des dizaines de pays ne sont pas acceptés par Stripe. Encaisser par carte : impossible.</p>
+      </div>
+      <div class="pcard">
+        <span class="pcard-ico">💸</span>
+        <div class="pcard-t" data-fr="Frais excessifs" data-en="Outrageous fees">Frais excessifs</div>
+        <p class="pcard-d" data-fr="Conversion, virement international, frais de tenue. Les banques locales ponctionnent chaque transaction." data-en="Currency conversion, international transfers, maintenance fees. Local banks bleed you on every transaction.">Conversion, virement international, frais de tenue. Les banques locales ponctionnent chaque transaction.</p>
+      </div>
+      <div class="pcard">
+        <span class="pcard-ico">🏦</span>
+        <div class="pcard-t" data-fr="Banques dépassées" data-en="Banks don't get it">Banques dépassées</div>
+        <p class="pcard-d" data-fr="Revenus en ligne, virements Stripe, affiliation — les banques locales bloquent ou exigent des justificatifs sans fin." data-en="Online revenue, Stripe payouts, affiliate income — local banks either block or demand endless paperwork.">Revenus en ligne, virements Stripe, affiliation — les banques locales bloquent ou exigent des justificatifs sans fin.</p>
+      </div>
+      <div class="pcard">
+        <span class="pcard-ico">🔒</span>
+        <div class="pcard-t" data-fr="Rapatriement forcé" data-en="Forced repatriation">Rapatriement forcé</div>
+        <p class="pcard-d" data-fr="Certains pays vous obligent à rapatrier vos revenus et à les convertir. Vous perdez au change et perdez toute souplesse." data-en="Some countries force you to bring revenue home and convert it. You lose on exchange rates and all flexibility.">Certains pays vous obligent à rapatrier vos revenus et à les convertir. Vous perdez au change et perdez toute souplesse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how-sec" id="how">
+  <div class="how-inner">
+    <div class="how-hdr rv">
+      <div>
+        <div class="stag" data-fr="La solution" data-en="The solution">La solution</div>
+        <h2 class="sh2" data-fr="Une entité UK. Tout se débloque." data-en="A UK entity. Everything unlocks.">Une entité UK. Tout se débloque.</h2>
+      </div>
+      <p class="sp" data-fr="Nous créons et gérons votre Limited Liability Partnership au Royaume-Uni. Vous restez là où vous êtes. En 10 à 15 jours ouvrés, vous encaissez partout — sans obligation de rapatrier." data-en="We create and manage your UK Limited Liability Partnership. You stay wherever you are. In 10–15 business days, you're accepting payments worldwide — no repatriation required.">
+        Nous créons et gérons votre Limited Liability Partnership au Royaume-Uni. Vous restez là où vous êtes. En 10 à 15 jours ouvrés, vous encaissez partout — sans obligation de rapatrier.
+      </p>
+    </div>
+    <div class="steps rv">
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 01" data-en="Step 01">Étape 01</div>
+        <div class="step-t" data-fr="Collecte des documents" data-en="Document collection">Collecte des documents</div>
+        <p class="step-d" data-fr="Checklist claire, 100% en ligne. Passeport, justificatif d'adresse, quelques infos sur votre activité. On s'occupe du reste." data-en="Clear checklist, 100% online. Passport, proof of address, a few details about your business. We handle the rest.">Checklist claire, 100% en ligne. Passeport, justificatif d'adresse, quelques infos sur votre activité. On s'occupe du reste.</p>
+      </div>
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 02" data-en="Step 02">Étape 02</div>
+        <div class="step-t" data-fr="Création LLP UK" data-en="UK LLP registration">Création LLP UK</div>
+        <p class="step-d" data-fr="Immatriculation de votre LLP à Companies House avec adresse enregistrée à Londres. Validé en 24 à 48h." data-en="Your Limited Liability Partnership is filed at Companies House with a registered London address. Done in 24–48h.">Immatriculation de votre LLP à Companies House avec adresse enregistrée à Londres. Validé en 24 à 48h.</p>
+      </div>
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 03" data-en="Step 03">Étape 03</div>
+        <div class="step-t" data-fr="Compte multi-devises" data-en="Multi-currency account">Compte multi-devises</div>
+        <p class="step-d" data-fr="Airwallex ou Wise Business. IBAN GBP, EUR, USD. Cartes physiques et virtuelles. Gestion depuis votre téléphone, partout dans le monde." data-en="Airwallex or Wise Business. GBP, EUR, USD IBANs. Physical and virtual cards. Manage everything from your phone.">Airwallex ou Wise Business. IBAN GBP, EUR, USD. Cartes physiques et virtuelles. Gestion depuis votre téléphone, partout dans le monde.</p>
+      </div>
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 04" data-en="Step 04">Étape 04</div>
+        <div class="step-t" data-fr="Stripe & plateformes" data-en="Stripe & platforms">Stripe & plateformes</div>
+        <p class="step-d" data-fr="On vous accompagne dans la création de votre compte Stripe UK et la connexion à vos outils : Shopify, Gumroad, Systeme.io, WooCommerce…" data-en="We walk you through Stripe UK account setup and connection to your tools: Shopify, Gumroad, Systeme.io, WooCommerce…">On vous accompagne dans la création de votre compte Stripe UK et la connexion à vos outils : Shopify, Gumroad, Systeme.io, WooCommerce…</p>
+      </div>
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 05" data-en="Step 05">Étape 05</div>
+        <div class="step-t" data-fr="Comptabilité UK annuelle" data-en="Annual UK accounting">Comptabilité UK annuelle</div>
+        <p class="step-d" data-fr="Tenue des comptes et dépôt de la Partnership Tax Return (SA800) auprès de HMRC. Aucune surprise, aucun retard." data-en="We handle the annual accounts and Partnership Tax Return (SA800) filing with HMRC. No surprises, no late penalties.">Tenue des comptes et dépôt de la Partnership Tax Return (SA800) auprès de HMRC. Aucune surprise, aucun retard.</p>
+      </div>
+      <div class="step"><div class="step-bar"></div>
+        <div class="step-n" data-fr="Étape 06" data-en="Step 06">Étape 06</div>
+        <div class="step-t" data-fr="Guidance fiscale locale" data-en="Local tax guidance">Guidance fiscale locale</div>
+        <p class="step-d" data-fr="On vous explique comment déclarer vos revenus LLP dans votre pays de résidence. Clair, documenté, adapté à votre situation." data-en="We explain how to declare your LLP income in your country of residence. Clear, documented, adapted to your situation.">On vous explique comment déclarer vos revenus LLP dans votre pays de résidence. Clair, documenté, adapté à votre situation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="ben-sec">
+  <div class="ben-inner">
+    <div class="ben-hdr rv">
+      <div class="stag" data-fr="Pourquoi Unlockd" data-en="Why Unlockd">Pourquoi Unlockd</div>
+      <h2 class="sh2" data-fr="La liberté dont vous avez vraiment besoin." data-en="The freedom you actually need.">La liberté dont vous avez vraiment besoin.</h2>
+      <p class="sp" data-fr="Une LLP UK est la structure la plus propre et la plus flexible pour les nomades qui vendent globalement et veulent garder le contrôle total de leur trésorerie." data-en="A UK LLP is the cleanest, most flexible structure for nomads who sell globally and want to keep full control of their cash.">Une LLP UK est la structure la plus propre et la plus flexible pour les nomades qui vendent globalement et veulent garder le contrôle total de leur trésorerie.</p>
+    </div>
+    <div class="ben-grid">
+      <div class="bcard bc1 rv">
+        <span class="bcard-ico">🌍</span>
+        <div class="bcard-t" data-fr="Gardez vos fonds où ils sont" data-en="Keep funds where they are">Gardez vos fonds où ils sont</div>
+        <p class="bcard-d" data-fr="Pas de rapatriement obligatoire. Vos revenus restent dans votre compte UK multi-devises — en GBP, EUR, USD ou stablecoins — jusqu'à ce que vous décidiez quoi en faire." data-en="No forced repatriation. Your revenue stays in your UK multi-currency account — in GBP, EUR, USD or stablecoins — until you decide what to do with it.">Pas de rapatriement obligatoire. Vos revenus restent dans votre compte UK multi-devises — en GBP, EUR, USD ou stablecoins — jusqu'à ce que vous décidiez quoi en faire.</p>
+      </div>
+      <div class="bcard bc2 rv">
+        <span class="bcard-ico">💎</span>
+        <div class="bcard-t" data-fr="Multi-devises & crypto-ready" data-en="Multi-currency & crypto-ready">Multi-devises & crypto-ready</div>
+        <p class="bcard-d" data-fr="Acceptez les paiements par carte, SEPA, SWIFT et crypto (USDC, USDT, BTC via Coinbase Commerce). Vendez et conservez dans n'importe quelle devise." data-en="Accept card payments, SEPA, SWIFT and crypto (USDC, USDT, BTC via Coinbase Commerce). Sell in any currency, hold in any currency.">Acceptez les paiements par carte, SEPA, SWIFT et crypto (USDC, USDT, BTC via Coinbase Commerce). Vendez et conservez dans n'importe quelle devise.</p>
+      </div>
+      <div class="bcard bc3 rv">
+        <span class="bcard-ico">⚡</span>
+        <div class="bcard-t" data-fr="Fiscalement transparent, partout" data-en="Tax transparent, globally">Fiscalement transparent, partout</div>
+        <p class="bcard-d" data-fr="La LLP ne paie pas d'IS au UK si l'activité est exercée hors du Royaume-Uni. Chaque membre déclare sa quote-part localement — souvent à des taux très avantageux selon votre pays de résidence." data-en="The LLP pays zero UK corporate tax if activity is outside the UK. Each member declares their share locally — often at very favorable rates depending on where you live.">La LLP ne paie pas d'IS au UK si l'activité est exercée hors du Royaume-Uni. Chaque membre déclare sa quote-part localement — souvent à des taux très avantageux selon votre pays de résidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price-sec" id="pricing">
+  <div class="price-inner">
+    <div class="rv">
+      <div class="stag" data-fr="Ce qui est inclus" data-en="What's included">Ce qui est inclus</div>
+      <h2 class="sh2" data-fr="Tout compris. Aucun frais caché." data-en="Everything. No hidden fees.">Tout compris. Aucun frais caché.</h2>
+      <div class="inc-list">
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Collecte et vérification des documents" data-en="Document collection & verification">Collecte et vérification des documents</div><div class="inc-s" data-fr="Checklist guidée + support WhatsApp" data-en="Guided checklist + WhatsApp support">Checklist guidée + support WhatsApp</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Immatriculation LLP à Companies House" data-en="UK LLP registration at Companies House">Immatriculation LLP à Companies House</div><div class="inc-s" data-fr="Frais Companies House inclus (£50)" data-en="Companies House filing fee included (£50)">Frais Companies House inclus (£50)</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Adresse enregistrée à Londres" data-en="London registered address">Adresse enregistrée à Londres</div><div class="inc-s" data-fr="Domiciliation + scan du courrier officiel" data-en="Virtual office + official mail scanning">Domiciliation + scan du courrier officiel</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Ouverture compte bancaire UK multi-devises" data-en="UK multi-currency business account">Ouverture compte bancaire UK multi-devises</div><div class="inc-s" data-fr="Airwallex ou Wise Business — GBP / EUR / USD" data-en="Airwallex or Wise Business — GBP / EUR / USD">Airwallex ou Wise Business — GBP / EUR / USD</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Configuration Stripe & plateformes" data-en="Stripe setup & platform connections">Configuration Stripe & plateformes</div><div class="inc-s" data-fr="Vérification opérationnelle incluse" data-en="Operational verification included">Vérification opérationnelle incluse</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Comptabilité annuelle UK + SA800 HMRC" data-en="Annual UK accounts + SA800 HMRC filing">Comptabilité annuelle UK + SA800 HMRC</div><div class="inc-s" data-fr="Inclus la 1ère année" data-en="Year 1 included">Inclus la 1ère année</div></div></div>
+        <div class="inc-row"><div class="inc-ck"><svg viewBox="0 0 10 10" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,8 8.5,2"/></svg></div><div><div class="inc-t" data-fr="Guidance fiscale dans votre pays de résidence" data-en="Local tax guidance in your country">Guidance fiscale dans votre pays de résidence</div><div class="inc-s" data-fr="EAU, Maurice, Thaïlande, Indonésie, Mexique…" data-en="UAE, Mauritius, Thailand, Indonesia, Mexico…">EAU, Maurice, Thaïlande, Indonésie, Mexique…</div></div></div>
+      </div>
+    </div>
+    <div class="rv2">
+      <div class="pcard-wrap">
+        <div class="price-card">
+          <div class="price-top">
+            <div class="price-badge">✦ <span data-fr="Formule unique tout inclus" data-en="Complete all-inclusive package">Formule unique tout inclus</span></div>
+            <div><span class="price-cur">€</span><span class="price-amt">1 800</span></div>
+            <div class="price-per" data-fr="Setup complet — année 1 tout inclus" data-en="Full setup — year 1 all-inclusive">Setup complet — année 1 tout inclus</div>
+          </div>
+          <div class="price-body">
+            <div class="price-feats">
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="Opérationnel en 10–15 jours ouvrés" data-en="Live in 10–15 business days">Opérationnel en 10–15 jours ouvrés</span></div>
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="Stripe actif à la livraison" data-en="Stripe active at delivery">Stripe actif à la livraison</span></div>
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="100% en ligne — aucun déplacement requis" data-en="100% remote — no travel required">100% en ligne — aucun déplacement requis</span></div>
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="Support WhatsApp tout au long du process" data-en="WhatsApp support throughout">Support WhatsApp tout au long du process</span></div>
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="Paiement en 2 fois disponible" data-en="Split payment available">Paiement en 2 fois disponible</span></div>
+              <div class="price-f"><div class="pf-dot"></div><span data-fr="Consultation initiale gratuite" data-en="Free initial consultation">Consultation initiale gratuite</span></div>
+            </div>
+            <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;font-size:15px;" onclick="openModal(event)" data-fr="Démarrer mon projet →" data-en="Start my project →">Démarrer mon projet →</a>
+            <div class="price-renew" data-fr="Renouvellement annuel à partir de 750 € / an" data-en="Annual renewal from €750 / year">Renouvellement annuel à partir de 750 € / an</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="who-sec" id="who">
+  <div class="who-inner">
+    <div class="who-hdr rv">
+      <div class="stag" data-fr="Pour qui" data-en="Who it's for">Pour qui</div>
+      <h2 class="sh2" data-fr="Conçu pour l'économie sans frontières." data-en="Built for the location-independent economy.">Conçu pour l'économie sans frontières.</h2>
+      <p class="sp" data-fr="Si vous gagnez votre vie en ligne et vivez hors des grandes zones bancaires occidentales, c'est pour vous." data-en="If you earn online and live outside a major Western banking hub, this is for you.">Si vous gagnez votre vie en ligne et vivez hors des grandes zones bancaires occidentales, c'est pour vous.</p>
+    </div>
+    <div class="who-grid">
+      <div class="wcard rv">
+        <span class="wcard-ico">🎓</span>
+        <div class="wcard-t" data-fr="Infopreneurs & Coachs" data-en="Infopreneurs & Coaches">Infopreneurs & Coachs</div>
+        <p class="wcard-d" data-fr="Formations en ligne, coaching, memberships, ebooks. Vous vendez de la connaissance dans le monde entier — votre infrastructure de paiement doit être à la hauteur." data-en="Online courses, coaching programs, memberships, ebooks. You sell knowledge worldwide — your payment stack should match.">Formations en ligne, coaching, memberships, ebooks. Vous vendez de la connaissance dans le monde entier — votre infrastructure de paiement doit être à la hauteur.</p>
+        <div class="wcard-tags"><span class="wtag">Teachable</span><span class="wtag">Kajabi</span><span class="wtag">Systeme.io</span><span class="wtag">Gumroad</span></div>
+      </div>
+      <div class="wcard rv">
+        <span class="wcard-ico">📱</span>
+        <div class="wcard-t" data-fr="Créateurs de contenu" data-en="Content Creators">Créateurs de contenu</div>
+        <p class="wcard-d" data-fr="YouTube, newsletters, podcasts, partenariats marques, produits digitaux. Des revenus multiples méritent une structure unique et professionnelle." data-en="YouTube, newsletters, podcasts, brand deals, digital products. Multiple revenue streams need a single, professional entity.">YouTube, newsletters, podcasts, partenariats marques, produits digitaux. Des revenus multiples méritent une structure unique et professionnelle.</p>
+        <div class="wcard-tags"><span class="wtag">Substack</span><span class="wtag">Patreon</span><span class="wtag">Beehiiv</span><span class="wtag">Stripe</span></div>
+      </div>
+      <div class="wcard rv">
+        <span class="wcard-ico">🛍️</span>
+        <div class="wcard-t" data-fr="E-commerce & Dropshippers" data-en="E-commerce & Dropshippers">E-commerce & Dropshippers</div>
+        <p class="wcard-d" data-fr="Produits physiques ou digitaux, dropshipping, print-on-demand. Shopify Payments, Stripe et des frais de change bas pour rester compétitif." data-en="Physical or digital products, dropshipping, print-on-demand. You need Shopify Payments, Stripe, and low-cost FX to stay competitive.">Produits physiques ou digitaux, dropshipping, print-on-demand. Shopify Payments, Stripe et des frais de change bas pour rester compétitif.</p>
+        <div class="wcard-tags"><span class="wtag">Shopify</span><span class="wtag">WooCommerce</span><span class="wtag">Printful</span><span class="wtag">Spocket</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="faq-inner">
+    <div class="stag rv" data-fr="Questions fréquentes" data-en="FAQ">Questions fréquentes</div>
+    <h2 class="sh2 rv" data-fr="Les questions que vous vous posez déjà." data-en="Questions you already have.">Les questions que vous vous posez déjà.</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Dois-je me rendre au Royaume-Uni pour créer la LLP ?" data-en="Do I need to travel to the UK to set this up?">Dois-je me rendre au Royaume-Uni pour créer la LLP ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="Non. Le process est 100% en ligne. Aucun déplacement, aucun rendez-vous physique. Tout se passe par email et WhatsApp, de n'importe où dans le monde." data-en="No. The entire process is 100% remote. No branch visit, no in-person signing. Everything happens via email and WhatsApp, from wherever you are in the world.">Non. Le process est 100% en ligne. Aucun déplacement, aucun rendez-vous physique. Tout se passe par email et WhatsApp, de n'importe où dans le monde.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Combien de personnes faut-il pour créer une LLP ?" data-en="How many people do I need to form an LLP?">Combien de personnes faut-il pour créer une LLP ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="La loi UK exige un minimum de 2 membres. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les deux membres peuvent être non-résidents UK et de toute nationalité." data-en="A minimum of 2 members is required by UK law. If you're solo, mention it when you reach out — solutions exist. Both members can be non-UK residents of any nationality.">La loi UK exige un minimum de 2 membres. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les deux membres peuvent être non-résidents UK et de toute nationalité.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Vais-je payer des impôts au Royaume-Uni ?" data-en="Will I pay corporate tax in the UK?">Vais-je payer des impôts au Royaume-Uni ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="Non. La LLP est fiscalement transparente : pas d'impôt sur les sociétés au UK si l'activité est exercée hors du Royaume-Uni par des membres non-résidents. Chaque membre déclare sa quote-part dans son pays selon les règles locales." data-en="No. An LLP is fiscally transparent — it pays zero UK corporate tax when activity is conducted outside the UK by non-resident members. Each member declares their share locally according to their own country's rules.">Non. La LLP est fiscalement transparente : pas d'impôt sur les sociétés au UK si l'activité est exercée hors du Royaume-Uni par des membres non-résidents. Chaque membre déclare sa quote-part dans son pays selon les règles locales.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Dois-je obligatoirement rapatrier mes revenus ?" data-en="Do I have to repatriate my earnings?">Dois-je obligatoirement rapatrier mes revenus ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="Non. Vos revenus restent dans votre compte UK multi-devises aussi longtemps que vous le souhaitez — en GBP, EUR, USD ou stablecoins. Vous décidez quand et comment les transférer. Pas de conversion forcée, pas d'obligation de passer par le système bancaire local." data-en="No. Your revenue stays in your UK multi-currency account as long as you want — in GBP, EUR, USD, or stablecoins. You decide when and how to move it. No forced conversion, no local banking system required.">Non. Vos revenus restent dans votre compte UK multi-devises aussi longtemps que vous le souhaitez — en GBP, EUR, USD ou stablecoins. Vous décidez quand et comment les transférer. Pas de conversion forcée, pas d'obligation de passer par le système bancaire local.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Puis-je accepter des paiements en crypto ?" data-en="Can I accept crypto payments?">Puis-je accepter des paiements en crypto ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="Oui. Avec votre LLP UK et votre compte Airwallex / Wise, vous pouvez connecter Coinbase Commerce ou des plateformes similaires pour accepter USDC, USDT, BTC et d'autres cryptomonnaies. Votre structure est totalement compatible." data-en="Yes. With your UK LLP and Airwallex / Wise account, you can connect Coinbase Commerce or similar platforms to accept USDC, USDT, BTC and other major cryptocurrencies. Your structure is fully compatible.">Oui. Avec votre LLP UK et votre compte Airwallex / Wise, vous pouvez connecter Coinbase Commerce ou des plateformes similaires pour accepter USDC, USDT, BTC et d'autres cryptomonnaies. Votre structure est totalement compatible.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tFaq(this)">
+          <span data-fr="Que se passe-t-il si je déménage dans un autre pays ?" data-en="What if I move to another country?">Que se passe-t-il si je déménage dans un autre pays ?</span>
+          <span class="faq-tog">+</span>
+        </button>
+        <div class="faq-a" data-fr="Rien ne change pour votre LLP UK. Elle reste enregistrée au Royaume-Uni quelle que soit votre résidence. Seule la guidance fiscale locale sera à adapter. On gère cette transition avec vous." data-en="Nothing changes for your UK LLP. It stays registered in the UK regardless of where you live. Only the local tax guidance will need updating to reflect your new country. We handle that transition with you.">Rien ne change pour votre LLP UK. Elle reste enregistrée au Royaume-Uni quelle que soit votre résidence. Seule la guidance fiscale locale sera à adapter. On gère cette transition avec vous.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-orb"></div>
+  <h2 class="cta-h2 rv" data-fr="Prêt à encaisser partout dans le monde ?" data-en="Ready to get paid, everywhere?">Prêt à encaisser partout dans le monde ?</h2>
+  <p class="cta-p rv" data-fr="Consultation initiale gratuite · Réponse sous 24h · Sans engagement" data-en="Free initial call · Response within 24h · No commitment">Consultation initiale gratuite · Réponse sous 24h · Sans engagement</p>
+  <div class="rv">
+    <a href="#contact" class="btn-primary" style="font-size:17px;padding:16px 36px;" onclick="openModal(event)" data-fr="Démarrer mon projet →" data-en="Start my project →">Démarrer mon projet →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">Unlockd</div>
+  <div class="ft-links">
+    <a href="#how" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</a>
+    <a href="#pricing" data-fr="Tarifs" data-en="Pricing">Tarifs</a>
+    <a href="#who" data-fr="Pour qui" data-en="Who it's for">Pour qui</a>
+    <a href="#contact" onclick="openModal(event)" data-fr="Contact" data-en="Contact">Contact</a>
+  </div>
+  <div class="ft-note" data-fr="© 2025 Unlockd · Service indépendant · Non agréé financier ni fiscal" data-en="© 2025 Unlockd · Independent service · Not a licensed financial or tax advisor">© 2025 Unlockd · Service indépendant · Non agréé financier ni fiscal</div>
+</footer>
+
+<!-- MODAL -->
+<div class="ov" id="modal" onclick="closeOut(event)">
+  <div class="modal">
+    <button class="mx" onclick="closeModal()">×</button>
+    <div class="m-ico">🚀</div>
+    <div class="m-t" data-fr="Démarrons ensemble" data-en="Let's get started">Démarrons ensemble</div>
+    <p class="m-s" data-fr="2 minutes pour décrire votre situation — on vous répond sous 24h." data-en="2 minutes to describe your situation — we'll get back to you within 24h.">2 minutes pour décrire votre situation — on vous répond sous 24h.</p>
+    <div class="fld">
+      <label data-fr="Prénom" data-en="First name">Prénom</label>
+      <input type="text" id="inp-name" placeholder="Alex">
+    </div>
+    <div class="fld">
+      <label>Email</label>
+      <input type="email" placeholder="alex@monbusiness.com">
+    </div>
+    <div class="fld">
+      <label data-fr="Pays de résidence actuel" data-en="Current country of residence">Pays de résidence actuel</label>
+      <input type="text" id="inp-country" placeholder="Dubaï, Bali, Maurice…">
+    </div>
+    <div class="fld">
+      <label data-fr="Type d'activité" data-en="Type of business">Type d'activité</label>
+      <select>
+        <option value="" disabled selected data-fr="Choisir…" data-en="Choose…">Choisir…</option>
+        <option data-fr="E-commerce (produits physiques)" data-en="E-commerce (physical products)">E-commerce (produits physiques)</option>
+        <option data-fr="Infoproduits / Formation en ligne" data-en="Infoproducts / Online courses">Infoproduits / Formation en ligne</option>
+        <option data-fr="SaaS / Application" data-en="SaaS / Software">SaaS / Application</option>
+        <option data-fr="Freelance / Conseil" data-en="Freelance / Consulting">Freelance / Conseil</option>
+        <option data-fr="Dropshipping" data-en="Dropshipping">Dropshipping</option>
+        <option data-fr="Créateur de contenu / Affiliation" data-en="Content creator / Affiliate">Créateur de contenu / Affiliation</option>
+        <option data-fr="Crypto / Web3" data-en="Crypto / Web3">Crypto / Web3</option>
+        <option data-fr="Autre" data-en="Other">Autre</option>
+      </select>
+    </div>
+    <button class="m-sub" onclick="submitForm()" data-fr="Envoyer ma demande →" data-en="Send my request →">Envoyer ma demande →</button>
+    <div class="m-fine" data-fr="Consultation offerte · Sans engagement · 100% confidentiel" data-en="Free consultation · No commitment · 100% confidential">Consultation offerte · Sans engagement · 100% confidentiel</div>
+  </div>
+</div>
+
+<script>
+// ── LANG ──
+let lang = 'fr';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-fr').classList.toggle('active', l === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.documentElement.lang = l;
+
+  document.querySelectorAll('[data-fr],[data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + l);
+    if (val === null) return;
+    const tag = el.tagName;
+    if (tag === 'INPUT') {
+      // skip — handled via placeholder attrs
+    } else if (tag === 'OPTION') {
+      el.textContent = val;
+    } else {
+      el.innerHTML = val;
+    }
+  });
+
+  // Placeholders
+  const namePh = {fr:'Alex', en:'Alex'};
+  const cntPh  = {fr:'Dubaï, Bali, Maurice…', en:'Dubai, Bali, Mauritius…'};
+  document.getElementById('inp-name').placeholder = namePh[l];
+  document.getElementById('inp-country').placeholder = cntPh[l];
+}
+
+// ── MODAL ──
+function openModal(e) {
+  if (e) e.preventDefault();
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeOut(e) { if (e.target.id === 'modal') closeModal(); }
+function submitForm() {
+  alert(lang === 'fr' ? 'Merci ! Nous vous contactons sous 24h.' : "Thanks! We'll be in touch within 24h.");
+  closeModal();
+}
+
+// ── FAQ ──
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  });
+});
+
+// ── REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv,.rv2').forEach(el => obs.observe(el));
+
+// alias
+function tFaq(btn) { btn.click(); }
+</script>
+</body>
+</html>
