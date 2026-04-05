@@ -559,7 +559,7 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
           <span data-fr="Combien de personnes faut-il pour créer une LLP ?" data-en="How many people do I need to form an LLP?">Combien de personnes faut-il pour créer une LLP ?</span>
           <span class="faq-tog">+</span>
         </button>
-        <div class="faq-a" data-fr="La loi UK exige un minimum de 2 membres. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les deux membres peuvent être non-résidents UK et de toute nationalité." data-en="A minimum of 2 members is required by UK law. If you're solo, mention it when you reach out — solutions exist. Both members can be non-UK residents of any nationality.">La loi UK exige un minimum de 2 membres. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les deux membres peuvent être non-résidents UK et de toute nationalité.</div>
+        <div class="faq-a" data-fr="La loi UK exige un minimum de 2 actionnaires pour constituer une LLP. Ces actionnaires peuvent être des personnes morales ou des personnes physiques. À noter qu'il faudra a minima 1 personne physique dans la liste des actionnaires. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les actionnaires peuvent être non-résidents UK et de toute nationalité." data-en="UK law requires a minimum of 2 members to form an LLP. These members can be legal entities or individuals. Note that at least 1 individual must be listed as a member. If you're solo, mention it when you reach out — solutions exist. Members can be non-UK residents of any nationality.">La loi UK exige un minimum de 2 actionnaires pour constituer une LLP. Ces actionnaires peuvent être des personnes morales ou des personnes physiques. À noter qu'il faudra a minima 1 personne physique dans la liste des actionnaires. Si vous êtes seul, mentionnez-le lors de la prise de contact — des solutions existent. Les actionnaires peuvent être non-résidents UK et de toute nationalité.</div>
       </div>
 
       <div class="faq-item">
@@ -751,23 +751,18 @@ function submitForm() {
 }
 
 // ── FAQ ──
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    const open = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!open) item.classList.add('open');
-  });
-});
+function tFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!open) item.classList.add('open');
+}
 
 // ── REVEAL ──
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.rv,.rv2').forEach(el => obs.observe(el));
-
-// alias
-function tFaq(btn) { btn.click(); }
 </script>
 </body>
 </html>
